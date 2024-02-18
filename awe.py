@@ -2,18 +2,24 @@ import os
 from pprint import pprint
 # print(os.getcwd())
 # pprint(dir(os))
-# v = ["hello","there","how","how","are","there"]
-# yho = v.index("there")
-# print(yho)
+def modified_ext_directory(extensions_list)-> str:
+    videos = ["mp4","mkv"]
+    images = ["jpeg","jpg","png","gif"]
+    docs   = ["pdf","txt"]
+    hai = []
+    for extension in extensions_list:
+        if extension in videos: 
+            hai.append("videos")
+        elif extension in images:
+            hai.append("images")
+        elif extension in docs:
+            hai.append("documents")
+        else: 
+            hai += extension
+    return set(hai)
 
-# pwd = os.getcwd()
-# def get_username_from_path():
-#     dir_split = pwd.split("/")
-#     user_profile_index = dir_split.index("home")
-#     return dir_split[user_profile_index+1]
 
-# print(get_username_from_path())
-def hello() -> str:
-    return 12 
+lisst = ["jpeg","jpg","png","gif","mp4","mkv","pdf","txt"]
 
-print(hello())
+
+print(modified_ext_directory(lisst))

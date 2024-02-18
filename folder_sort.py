@@ -21,11 +21,25 @@ def get_target_path(profile):
 def change_directory(directory):
     # profile = get_username()
     os.chdir(directory) #make this path dynamic for future use 
-    """now we want to analyse the different extentions of differnt files and 
-    check whether somesthing is a file or a folder"""
-    """when in while loop we will be able to keep state of being in that directory"""
 
 
+def modified_ext_directory(extensions_list)-> str:
+    videos = ["mp4","mkv"]
+    images = ["jpeg","jpg","png","gif"]
+    docs   = ["pdf","txt"]
+    hai = []
+    for extension in extensions_list:
+        if extension in videos: 
+            hai.append("videos")
+        elif extension in images:
+            hai.append("images")
+        elif extension in docs:
+            hai.append("documents")
+        else: 
+            hai += extension
+    return set(hai)
+
+    #parameter fed from validate ext dir
 def create_extension_directory(extensions):
     for extension in extensions:
         if os.path.exists(extension):
@@ -33,8 +47,10 @@ def create_extension_directory(extensions):
             #get extensions from extension_id
             return
         else:
-            # os.mkdir(f"{extension}")
-            print("i shoulda be making a directory")
+            
+            os.mkdir(f"{extension_dir}")
+            print(f"directory made {extension_dir}")
+            # print("i shoulda be making a directory")
 
 
 """isolate the current working direcrory using getcwd"""
@@ -57,7 +73,7 @@ def move_files(profile):
     os.chdir(f"/home/{profile}/Downloads")
     files = files_id()
     for file in files:
-        ext = "testing"
+        ext = os.path.splitext(file)[1][1:]
         destination = f"/home/{profile}/Downloads/{ext}/{file}"
     
         print("ext--", ext)
