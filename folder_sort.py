@@ -22,8 +22,21 @@ def change_directory(directory):
     # profile = get_username()
     os.chdir(directory) #make this path dynamic for future use 
 
+def modified_ext_directory2(extension)-> str:
+    videos = ["mp4","mkv"]
+    images = ["jpeg","jpg","png","gif"]
+    docs   = ["pdf","txt"]   
+    if extension in videos:
+        return "videos"
+    elif extension in images:
+        return "images"
+    elif extension in docs:
+        return "documents"
+    else: 
+        return extension
+    
 
-def modified_ext_directory(extensions_list)-> str:
+def modified_ext_directory1(extensions_list)-> set:
     videos = ["mp4","mkv"]
     images = ["jpeg","jpg","png","gif"]
     docs   = ["pdf","txt"]
@@ -39,18 +52,17 @@ def modified_ext_directory(extensions_list)-> str:
             hai += extension
     return set(hai)
 
-    #parameter fed from validate ext dir
+    #parameter fed from mod ext dir
 def create_extension_directory(extensions):
-    for extension in extensions:
-        if os.path.exists(extension):
-            print(f"Direcory {extension} already exists" )
+    for extension_dir in extensions:
+        if os.path.exists(extension_dir):
+            print(f"Direcory {extension_dir} already exists" )
             #get extensions from extension_id
             return
         else:
-            
             os.mkdir(f"{extension_dir}")
-            print(f"directory made {extension_dir}")
-            # print("i shoulda be making a directory")
+            # print(f"directory made {extension_dir}")
+            print("i shoulda be making a directory", extension_dir)
 
 
 """isolate the current working direcrory using getcwd"""
@@ -74,7 +86,8 @@ def move_files(profile):
     files = files_id()
     for file in files:
         ext = os.path.splitext(file)[1][1:]
-        destination = f"/home/{profile}/Downloads/{ext}/{file}"
+        ext_hai = modified_ext_directory2(ext)
+        destination = f"/home/{profile}/Downloads/{ext_hai}/{file}"
     
         print("ext--", ext)
         print()

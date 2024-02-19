@@ -19,7 +19,7 @@ def modified_ext_directory(extensions_list)-> str:
     return set(hai)
 
 
-lisst = ["jpeg","jpg","png","gif","mp4","mkv","pdf","txt"]
+lisst = ["jpg","mp4"]
 
 
 print(modified_ext_directory(lisst))
