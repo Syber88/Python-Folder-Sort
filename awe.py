@@ -20,6 +20,6 @@ def modified_ext_directory(extensions_list)-> str:
 
 
 lisst = ["jpg","mp4"]
-
+print("aweeeeeeeeeeeeeeeeeeeeeeee")
 
 print(modified_ext_directory(lisst))
