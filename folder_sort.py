@@ -22,6 +22,7 @@ def change_directory(directory):
     # profile = get_username()
     os.chdir(directory) #make this path dynamic for future use 
 
+
 def modified_ext_directory2(extension)-> str:
     videos = ["mp4","mkv"]
     images = ["jpeg","jpg","png","gif"]
@@ -52,6 +53,7 @@ def modified_ext_directory1(extensions_list)-> set:
             hai += extension
     return set(hai)
 
+
     #parameter fed from mod ext dir
 def create_extension_directory(extensions):
     for extension_dir in extensions:
@@ -65,10 +67,6 @@ def create_extension_directory(extensions):
             print("i shoulda be making a directory", extension_dir)
 
 
-"""isolate the current working direcrory using getcwd"""
-"""break down the code below into functions"""
-"""get a way to breakdown the code into separate functions"""
-"""function names will be, extensions identifier, extension move"""
 def files_id() -> list[str]:
     """function to identify all the files in a directory
     return: list of all the available files in the directoroy"""
@@ -79,6 +77,7 @@ def files_id() -> list[str]:
 def extension_id(file_list) -> set:
     """function to identify different typesp of extensions used by files in directory"""
     return [os.path.splitext(file)[1][1:] for file in file_list]
+
 
 def move_files(profile):
     # source = get_target_path(profile)
@@ -93,7 +92,9 @@ def move_files(profile):
         print()
         print("destination---", destination)
         print("=============================================")
-    print(file)
+        
+
+    # print(file)
     # if os.path.exists(destination + f"{files}"):
     #     rename = files[:dotfind] + "_new"
     #     # shutil.move(source + f"{files}", destination_dir + f"{rename}")
