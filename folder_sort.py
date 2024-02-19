@@ -49,7 +49,7 @@ def modified_ext_directory1(extensions_list)-> set:
         elif extension in docs:
             hai.append("documents")
         else: 
-            hai += extension
+            hai.append(extension)
     return set(hai)
 
     #parameter fed from mod ext dir
