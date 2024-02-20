@@ -27,7 +27,8 @@ def modified_ext_directory2(extension)-> str:
     "images" : ["jpeg","jpg","png","gif"],
     "docs"   : ["pdf","txt","doc", "docx", "odt","rtf","wpd"," wps"] ,  
     "compression" : ["zip","rar","7s","gz","tar"],
-    "executables" : ["app", "bat", "bin", "cmd", "com", "exe", "vbs", "x86"]
+    "executables" : ["app", "bat", "bin", "cmd", "com", "exe", "vbs", "x86"],
+    "programming files":  ["c", "cpp", "cs", "java", "js", "json", "py", "sql", "swift", "vb"]
     }
 
     for category, extension_raw in categories.items():
