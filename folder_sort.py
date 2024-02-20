@@ -72,14 +72,15 @@ def move_files(profile):
     for file in files:
         ext = os.path.splitext(file)[1][1:]
         ext_hai = modified_ext_directory2(ext)
+        source = f"/home/{profile}/Downloads/{file}"
         destination = f"/home/{profile}/Downloads/{ext_hai}/{file}"
 
-
-    # if os.path.exists(destination + f"{files}"):
-    #     rename = files[:dotfind] + "_new"
-    #     # shutil.move(source + f"{files}", destination_dir + f"{rename}")
-    # else:
-    #     shutil.move(source + f"{files}", destination_dir + f"{files}")
+        dotfind = file.rfind(".")
+        if os.path.exists(destination):
+            rename = file[:dotfind] + "_new"
+            shutil.move(source, f"/home/{profile}/Downloads/{ext_hai}/{rename}")
+        else:
+            shutil.move(source, destination)
 
 move_files(profile=get_username())
 
