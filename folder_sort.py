@@ -22,17 +22,17 @@ def change_directory(directory):
 
 
 def modified_ext_directory2(extension)-> str:
-    videos = ["mp4","mkv"]
-    images = ["jpeg","jpg","png","gif"]
-    docs   = ["pdf","txt"]   
-    if extension in videos:
-        return "videos"
-    elif extension in images:
-        return "images"
-    elif extension in docs:
-        return "documents"
-    else: 
-        return extension
+    categories = {
+    "videos" : ["mp4","mkv"],
+    "images" : ["jpeg","jpg","png","gif"],
+    "docs"   : ["pdf","txt","doc", "docx", "odt","rtf","wpd"," wps"] ,  
+    "compression" : ["zip","rar","7s","gz","tar"],
+    "executables" : ["app", "bat", "bin", "cmd", "com", "exe", "vbs", "x86"]
+    }
+
+    for category, extension_raw in categories.items():
+        if extension in extension_raw:
+            return category
     
 
 def modified_ext_directory1(extensions_list)-> set:
