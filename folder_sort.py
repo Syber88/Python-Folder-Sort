@@ -36,20 +36,11 @@ def modified_ext_directory2(extension)-> str:
     
 
 def modified_ext_directory1(extensions_list)-> set:
-    videos = ["mp4","mkv"]
-    images = ["jpeg","jpg","png","gif"]
-    docs   = ["pdf","txt"]
-    extension_modded = []
+    ext_modded = []
     for extension in extensions_list:
-        if extension in videos: 
-            extension_modded.append("videos")
-        elif extension in images:
-            extension_modded.append("images")
-        elif extension in docs:
-            extension_modded.append("documents")
-        else: 
-            extension_modded.append(extension)
-    return set(extension_modded)
+        extension_extract = modified_ext_directory2(extension)
+        ext_modded.append(extension_extract)
+    return set(ext_modded)
 
 
 def create_extension_directory(extensions):
@@ -69,7 +60,7 @@ def files_id() -> list[str]:
     return [file for file in dir_list if os.path.isfile(file)]
 
 
-def extension_id(file_list) -> set:
+def extension_id(file_list) -> list[str]:
     """function to identify different types of extensions used by files in directory"""
     return [os.path.splitext(file)[1][1:] for file in file_list]
 
