@@ -111,26 +111,48 @@ def files_id() -> list[str]:
 
 
 def extension_id(file_list) -> list[str]:
-    """function to identify different types of extensions used by files in directory"""
+    """Extract the file extensions from a list of filenames.
+    Args:
+        file_list (list): A list of filenames.
+    Returns:
+        list[str]: A list containing the file extensions extracted
+        from the filenames.
+    """
     return [os.path.splitext(file)[1][1:] for file in file_list]
 
-#create a function for renaming existing files
-#
-def move_files(profile):
-    os.chdir(f"/home/{profile}/Downloads")
-    files = files_id()
+
+def location(profile, files):
     for file in files:
         ext = os.path.splitext(file)[1][1:]
         ext_hai = modified_ext_directory2(ext)
         source = f"/home/{profile}/Downloads/{file}"
         destination = f"/home/{profile}/Downloads/{ext_hai}/{file}"
+        return source, destination
+    
 
-        dotfind = file.rfind(".")
-        if os.path.exists(destination):
-            rename = file[:dotfind] + "_new"
-            shutil.move(source, f"/home/{profile}/Downloads/{ext_hai}/{rename}")
-        else:
-            shutil.move(source, destination)
+# def 
+        
+    
+#create a function for renaming existing files
+#create a function for source and destination
+#how will we get the new extension directory
+def move_files(profile):
+    os.chdir(f"/home/{profile}/Downloads")
+    files = files_id()
+    source_dir = f"/home/{profile}/Downloads/"
+    # source, destination = location(profile, files)
+    for file in files:
+        ext = os.path.splitext(file)[1][1:]
+        ext_hai = modified_ext_directory2(ext)
+        source_path = os.path.join(source_dir, file)
+        destination = os.path.join(source_dir, ext_hai, file)
+
+    # dotfind = file.rfind(".")
+    if os.path.exists(destination):
+        rename = file[:dotfind] + "_new"
+        shutil.move(source_path, f"/home/{profile}/Downloads/{ext_hai}/{rename}")
+    else:
+        shutil.move(source, destination)
 
 move_files(profile=get_username())
 
