@@ -1,5 +1,4 @@
 import os
-import shutil
 
 
 def get_profile_name():
@@ -151,12 +150,12 @@ def move_files(profile):
         try:
             print(os.getcwd())
             os.makedirs(os.path.join(source_dir,ext_hai), exist_ok=True)
-            # shutil.move(source_path, destination_path)
             os.rename(source_path, destination_path)
-            print(f"Moved {file} to {destination_path}")
+            print(f"Moved {file} to {destination_path}\n")
             
         except Exception as e:
             print(f"Error moving '{file}': {e}")
+    print("Operations Complete")
             
 if __name__ == "__main__":
     profile  = get_profile_name()
