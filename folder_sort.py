@@ -53,13 +53,20 @@ def modified_ext_directory2(extension)-> str:
     """
     
     categories = {
-    "videos" : ["mp4","mkv"],
-    "images" : ["jpeg","jpg","png","gif"],
-    "docs"   : ["pdf","txt","doc", "docx", "odt","rtf","wpd"," wps"] ,  
-    "compression" : ["zip","rar","7s","gz","tar"],
-    "executables" : ["app", "bat", "bin", "cmd", "com", "exe", "vbs", "x86","iso"],
-    "programming files":  ["c", "cpp", "cs", "java", "js", "json", "py",\
-                           "sql", "swift", "vb"]
+        "videos": ["mp4", "mkv", "avi", "mov", "wmv", "flv", "webm"],
+        "images": ["jpeg", "jpg", "png", "gif", "bmp", "svg", "tiff"],
+        "audio": ["mp3", "wav", "flac", "aac", "ogg", "wma", "m4a"],
+        "documents": ["pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "txt"],
+        "archives": ["zip", "rar", "7z", "tar", "gz"],
+        "executables": ["exe", "bat", "sh", "bin"],
+        "programming files": ["py", "c", "cpp", "java", "html", "css", "js"],
+        "spreadsheets": ["xls", "xlsx", "ods"],
+        "presentations": ["ppt", "pptx", "odp"],
+        "database": ["sql", "db", "sqlite", "mdb"],
+        "fonts": ["ttf", "otf", "woff", "woff2"],
+        "vector_graphics": ["svg", "ai", "eps"],
+        "3d_models": ["obj", "stl", "fbx", "blend"],
+        "data_files": ["csv", "json", "xml", "yaml"],
     }
 
     for category, extension_raw in categories.items():
