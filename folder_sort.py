@@ -4,6 +4,16 @@ import shutil #allows us to delete a directory that is not empty
 from pprint import pprint
 
 def get_username():
+    """Get the username of the current user.
+    This function retrieves the username of the current user by extracting it
+    from the current working directory path.
+    Returns:
+        str: The username of the current user.
+    Raises:
+        Exception: If the current working directory is not within the
+        home directory.
+    """
+    
     pwd = os.getcwd() 
     dir_split = pwd.split("/")
     home = dir_split.index("home")
@@ -14,21 +24,44 @@ def get_username():
 
 
 def get_target_path(profile):
+    """Get the target path for a user's Downloads folder.
+    Args:
+        profile (str): The username or profile name of the user.
+    Returns:
+        str: The target path for the user's Downloads folder, formatted as
+        "/home/{profile}/Downloads".
+    """
     return f"/home/{profile}/Downloads"
 
 
 def change_directory(directory):
+    """Change the current working directory to the specified directory.
+    Args:
+        directory (str): The path of the directory to change to.
+    Raises:
+        FileNotFoundError: If the specified directory does not exist.
+        PermissionError: If the user does not have permission to access 
+        the specified directory.
+    """
     os.chdir(directory)
 
 
 def modified_ext_directory2(extension)-> str:
+    """Determine the category of a file based on its extension.
+    Args:
+        extension (str): The file extension to categorize.
+    Returns:
+        str: The category of the file based on its extension.
+    """
+    
     categories = {
     "videos" : ["mp4","mkv"],
     "images" : ["jpeg","jpg","png","gif"],
     "docs"   : ["pdf","txt","doc", "docx", "odt","rtf","wpd"," wps"] ,  
     "compression" : ["zip","rar","7s","gz","tar"],
     "executables" : ["app", "bat", "bin", "cmd", "com", "exe", "vbs", "x86"],
-    "programming files":  ["c", "cpp", "cs", "java", "js", "json", "py", "sql", "swift", "vb"]
+    "programming files":  ["c", "cpp", "cs", "java", "js", "json", "py",\
+                           "sql", "swift", "vb"]
     }
 
     for category, extension_raw in categories.items():
@@ -37,14 +70,30 @@ def modified_ext_directory2(extension)-> str:
     
 
 def modified_ext_directory1(extensions_list)-> set:
-    ext_modded = []
+    """Determine the categories of multiple file extensions.
+    Args:
+        extensions_list (list): A list of file extensions to categorize.
+    Returns:
+        set: A set containing the categories of the file extensions.
+    Raises:
+        KeyError: If any extension in the list is not found in any category.
+    """
+    
+    ext_modded = set
     for extension in extensions_list:
         extension_extract = modified_ext_directory2(extension)
-        ext_modded.append(extension_extract)
-    return set(ext_modded)
+        ext_modded.add(extension_extract)
+    return ext_modded
 
 
-def create_extension_directory(extensions):
+def create_directory(extensions):
+    """Create directories for each extension if they don't already exist.
+    Args:
+        extensions (list): A list of directory names to create.
+    Raises:
+        FileExistsError: If a directory with the same name already exists.
+    """
+    
     for extension_dir in extensions:
         if os.path.exists(extension_dir):
             print(f"Direcory {extension_dir} already exists" )
@@ -65,7 +114,8 @@ def extension_id(file_list) -> list[str]:
     """function to identify different types of extensions used by files in directory"""
     return [os.path.splitext(file)[1][1:] for file in file_list]
 
-
+#create a function for renaming existing files
+#
 def move_files(profile):
     os.chdir(f"/home/{profile}/Downloads")
     files = files_id()
