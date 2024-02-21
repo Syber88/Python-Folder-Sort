@@ -1,9 +1,8 @@
 import os
-import sys
-import shutil #allows us to delete a directory that is not empty
-from pprint import pprint
+import shutil
 
-def get_username():
+
+def get_profile_name():
     """Get the username of the current user.
     This function retrieves the username of the current user by extracting it
     from the current working directory path.
@@ -59,7 +58,7 @@ def modified_ext_directory2(extension)-> str:
     "images" : ["jpeg","jpg","png","gif"],
     "docs"   : ["pdf","txt","doc", "docx", "odt","rtf","wpd"," wps"] ,  
     "compression" : ["zip","rar","7s","gz","tar"],
-    "executables" : ["app", "bat", "bin", "cmd", "com", "exe", "vbs", "x86"],
+    "executables" : ["app", "bat", "bin", "cmd", "com", "exe", "vbs", "x86","iso"],
     "programming files":  ["c", "cpp", "cs", "java", "js", "json", "py",\
                            "sql", "swift", "vb"]
     }
@@ -67,6 +66,7 @@ def modified_ext_directory2(extension)-> str:
     for category, extension_raw in categories.items():
         if extension in extension_raw:
             return category
+    return "other"
     
 
 def modified_ext_directory1(extensions_list)-> set:
@@ -139,8 +139,9 @@ def move_files(profile):
         Exception: If an error occurs during the file moving process.
     """
     
+    os.chdir(f"/home/{profile}/Downloads")
     files = files_id()
-    source_dir = f"/home/{profile}/Downloads/"
+    source_dir = f"/home/{profile}/Downloads"
     for file in files:
         ext = os.path.splitext(file)[1][1:]
         ext_hai = modified_ext_directory2(ext)
@@ -148,9 +149,15 @@ def move_files(profile):
         destination_path = os.path.join(source_dir, ext_hai, file)
         
         try:
+            print(os.getcwd())
             os.makedirs(os.path.join(source_dir,ext_hai), exist_ok=True)
-            shutil.move(source_path, destination_path)
+            # shutil.move(source_path, destination_path)
+            os.rename(source_path, destination_path)
             print(f"Moved {file} to {destination_path}")
             
         except Exception as e:
             print(f"Error moving '{file}': {e}")
+            
+if __name__ == "__main__":
+    profile  = get_profile_name()
+    move_files(profile)
