@@ -121,26 +121,26 @@ def extension_id(file_list) -> list[str]:
     return [os.path.splitext(file)[1][1:] for file in file_list]
 
 
-def location(profile, files):
-    for file in files:
-        ext = os.path.splitext(file)[1][1:]
-        ext_hai = modified_ext_directory2(ext)
-        source = f"/home/{profile}/Downloads/{file}"
-        destination = f"/home/{profile}/Downloads/{ext_hai}/{file}"
-        return source, destination
-    
-
-# def 
-        
-    
-#create a function for renaming existing files
-#create a function for source and destination
-#how will we get the new extension directory
 def move_files(profile):
-    os.chdir(f"/home/{profile}/Downloads")
+    """Move files in the Downloads directory to categorized folders based on
+    their extensions.
+    This function iterates through the files in the Downloads directory
+    associated with the given profile.
+    Each file is categorized based on its extension, and then moved to a
+    corresponding subdirectory within the Downloads directory.
+
+    Args:
+        profile (str): The username or profile name of the user.
+
+    Returns:
+        None
+
+    Raises:
+        Exception: If an error occurs during the file moving process.
+    """
+    
     files = files_id()
     source_dir = f"/home/{profile}/Downloads/"
-    # source, destination = location(profile, files)
     for file in files:
         ext = os.path.splitext(file)[1][1:]
         ext_hai = modified_ext_directory2(ext)
@@ -151,34 +151,6 @@ def move_files(profile):
             os.makedirs(os.path.join(source_dir,ext_hai), exist_ok=True)
             shutil.move(source_path, destination_path)
             print(f"Moved {file} to {destination_path}")
+            
         except Exception as e:
             print(f"Error moving '{file}': {e}")
-    # dotfind = file.rfind(".")
-    # if os.path.exists(destination):
-    #     rename = file[:dotfind] + "_new"
-    #     shutil.move(source_path, f"/home/{profile}/Downloads/{ext_hai}/{rename}")
-    # else:
-    #     shutil.move(source, destination)
-
-# move_files(profile=get_username())
-
-            # print(i)
-        
-        #use rfind to find the last occurence of something 
-        
-        
-        
-# print(os.getcwd())
-# dirlist = 
-# os.mkdir("awepls")
-# os.rename("awepls","anotherone") 
-# os.remove("test.txt") 
-# try:
-#     os.rmdir("awe")
-# except:
-#     print("the directory is not empty")
-    
-# shutil.rmtree("awe")
-# pprint(dir(os))
-
-# pprint(check)
