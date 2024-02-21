@@ -4,66 +4,53 @@ import shutil #allows us to delete a directory that is not empty
 from pprint import pprint
 
 def get_username():
-    pwd = os.getcwd() #does not matter which directory you are in, but what if you're in the home directory. sort that out later 
+    pwd = os.getcwd() 
     dir_split = pwd.split("/")
     home = dir_split.index("home")
     try:  
         return dir_split[home+1]
     except:
-        print("currently in the home directory") #remove once terminal work and picking is once complete
+        print("currently in the home directory")
 
 
 def get_target_path(profile):
-    #get profile name from get_username and pass result onto change_directory. Downloads for now
     return f"/home/{profile}/Downloads"
 
 
 def change_directory(directory):
-    # profile = get_username()
-    os.chdir(directory) #make this path dynamic for future use 
+    os.chdir(directory)
 
 
 def modified_ext_directory2(extension)-> str:
-    videos = ["mp4","mkv"]
-    images = ["jpeg","jpg","png","gif"]
-    docs   = ["pdf","txt"]   
-    if extension in videos:
-        return "videos"
-    elif extension in images:
-        return "images"
-    elif extension in docs:
-        return "documents"
-    else: 
-        return extension
+    categories = {
+    "videos" : ["mp4","mkv"],
+    "images" : ["jpeg","jpg","png","gif"],
+    "docs"   : ["pdf","txt","doc", "docx", "odt","rtf","wpd"," wps"] ,  
+    "compression" : ["zip","rar","7s","gz","tar"],
+    "executables" : ["app", "bat", "bin", "cmd", "com", "exe", "vbs", "x86"],
+    "programming files":  ["c", "cpp", "cs", "java", "js", "json", "py", "sql", "swift", "vb"]
+    }
+
+    for category, extension_raw in categories.items():
+        if extension in extension_raw:
+            return category
     
 
 def modified_ext_directory1(extensions_list)-> set:
-    videos = ["mp4","mkv"]
-    images = ["jpeg","jpg","png","gif"]
-    docs   = ["pdf","txt"]
-    hai = []
+    ext_modded = []
     for extension in extensions_list:
-        if extension in videos: 
-            hai.append("videos")
-        elif extension in images:
-            hai.append("images")
-        elif extension in docs:
-            hai.append("documents")
-        else: 
-            hai += extension
-    return set(hai)
+        extension_extract = modified_ext_directory2(extension)
+        ext_modded.append(extension_extract)
+    return set(ext_modded)
 
 
-    #parameter fed from mod ext dir
 def create_extension_directory(extensions):
     for extension_dir in extensions:
         if os.path.exists(extension_dir):
             print(f"Direcory {extension_dir} already exists" )
-            #get extensions from extension_id
             return
         else:
             os.mkdir(f"{extension_dir}")
-            # print(f"directory made {extension_dir}")
             print("i shoulda be making a directory", extension_dir)
 
 
@@ -74,32 +61,26 @@ def files_id() -> list[str]:
     return [file for file in dir_list if os.path.isfile(file)]
 
 
-def extension_id(file_list) -> set:
-    """function to identify different typesp of extensions used by files in directory"""
+def extension_id(file_list) -> list[str]:
+    """function to identify different types of extensions used by files in directory"""
     return [os.path.splitext(file)[1][1:] for file in file_list]
 
 
 def move_files(profile):
-    # source = get_target_path(profile)
     os.chdir(f"/home/{profile}/Downloads")
     files = files_id()
     for file in files:
         ext = os.path.splitext(file)[1][1:]
         ext_hai = modified_ext_directory2(ext)
+        source = f"/home/{profile}/Downloads/{file}"
         destination = f"/home/{profile}/Downloads/{ext_hai}/{file}"
-    
-        print("ext--", ext)
-        print()
-        print("destination---", destination)
-        print("=============================================")
-        
 
-    # print(file)
-    # if os.path.exists(destination + f"{files}"):
-    #     rename = files[:dotfind] + "_new"
-    #     # shutil.move(source + f"{files}", destination_dir + f"{rename}")
-    # else:
-    #     shutil.move(source + f"{files}", destination_dir + f"{files}")
+        dotfind = file.rfind(".")
+        if os.path.exists(destination):
+            rename = file[:dotfind] + "_new"
+            shutil.move(source, f"/home/{profile}/Downloads/{ext_hai}/{rename}")
+        else:
+            shutil.move(source, destination)
 
 move_files(profile=get_username())
 
