@@ -145,16 +145,22 @@ def move_files(profile):
         ext = os.path.splitext(file)[1][1:]
         ext_hai = modified_ext_directory2(ext)
         source_path = os.path.join(source_dir, file)
-        destination = os.path.join(source_dir, ext_hai, file)
-
+        destination_path = os.path.join(source_dir, ext_hai, file)
+        
+        try:
+            os.makedirs(os.path.join(source_dir,ext_hai), exist_ok=True)
+            shutil.move(source_path, destination_path)
+            print(f"Moved {file} to {destination_path}")
+        except Exception as e:
+            print(f"Error moving '{file}': {e}")
     # dotfind = file.rfind(".")
-    if os.path.exists(destination):
-        rename = file[:dotfind] + "_new"
-        shutil.move(source_path, f"/home/{profile}/Downloads/{ext_hai}/{rename}")
-    else:
-        shutil.move(source, destination)
+    # if os.path.exists(destination):
+    #     rename = file[:dotfind] + "_new"
+    #     shutil.move(source_path, f"/home/{profile}/Downloads/{ext_hai}/{rename}")
+    # else:
+    #     shutil.move(source, destination)
 
-move_files(profile=get_username())
+# move_files(profile=get_username())
 
             # print(i)
         
