@@ -150,13 +150,13 @@ def move_files(profile):
     source_dir = f"/home/{profile}/Downloads"
     for file in files:
         ext = os.path.splitext(file)[1][1:]
-        ext_hai = modified_ext_directory2(ext)
+        ext_folder = modified_ext_directory2(ext)
         source_path = os.path.join(source_dir, file)
-        destination_path = os.path.join(source_dir, ext_hai, file)
+        destination_path = os.path.join(source_dir, ext_folder, file)
         
         try:
             print(os.getcwd())
-            os.makedirs(os.path.join(source_dir,ext_hai), exist_ok=True)
+            os.makedirs(os.path.join(source_dir,ext_folder), exist_ok=True)
             os.rename(source_path, destination_path)
             print(f"Moved {file} to {destination_path}\n")
             
